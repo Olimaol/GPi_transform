@@ -1,0 +1,1 @@
+Goal: transform inverse lateral excitation into lateral inhibition in the SNr/GPi.
