@@ -7,9 +7,9 @@ transform inverse lateral excitation into lateral inhibition in the SNr/GPi.
 `varying_inputs_run.py` - multiple inputs for the two neurons are simulated and the firing rates are monitored. For the original inverse lateral excitation and the new lateral inhibition.
 
 ### Results:
-Found equations to adjust baseline and lateral weight:
+Found equations to adjust baseline (weights can be kept):
 - $baseline_{inh} = weights_{exc}*(n-1)+baseline_{exc}$
-- $weights_{inh} = (baseline_{inh}-baseline_{exc})/(n-1)$
+- $weights_{inh} = weights_{exc}$
 
 Where $n$ is the number of neurons in the population.
 

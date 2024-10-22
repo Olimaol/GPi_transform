@@ -12,18 +12,11 @@ if __name__ == "__main__":
         # use default parameters, just pass
         pass
     elif sys.argv[1] == "inh":
-        # switch to inhibitory laterals and therefore change the weights and baseline
+        # switch to inhibitory laterals and therefore change the baseline (wheigts can
+        # be kept the same)
         gpi_model.model_kwargs = {
             "baseline": params.GPI__GPI_WEIGHTS * (params.GPI_GEOMETRY - 1)
             + params.GPI_BASELINE,
-            "weights": (
-                (
-                    params.GPI__GPI_WEIGHTS * (params.GPI_GEOMETRY - 1)
-                    + params.GPI_BASELINE
-                )
-                - params.GPI_BASELINE
-            )
-            / (params.GPI_GEOMETRY - 1),
             "laterals": "inh",
         }
         # change compile folder name
