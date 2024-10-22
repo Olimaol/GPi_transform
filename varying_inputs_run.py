@@ -9,10 +9,11 @@ if __name__ == "__main__":
             folder_name=params.VARYING_INPUTS_SAVE_FOLDER,
             parameter_module=params,
         )
-        ### run the simulation (single script call)
+        ### run the simulation
         run_script_parallel(
             script_path="varying_inputs.py",
             n_jobs=params.N_JOBS,
+            args_list=[["exc"], ["inh"]],
         )
     if params.VARYING_INPUTS_ANALYZE:
         ### run the analysis (single script call)

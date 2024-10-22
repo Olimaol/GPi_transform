@@ -11,7 +11,12 @@ class SimpleTrialGPi(CompNeuroExp):
     baseline, and the lateral weights of the GPi population.
     """
 
-    def run(self, input: float = None, baseline: float = None, weights: float = None):
+    def run(
+        self,
+        input: float | list[float, float] = None,
+        baseline: float = None,
+        weights: float = None,
+    ):
         # reset GPi population and lateral weights
         self.reset(projections=True)
         # set parameters
@@ -53,8 +58,16 @@ class VaryingInputGPi(CompNeuroExp):
             gpi__gpi.w = weights
         # create combinations of increasing input for two GPi neurons
         # unique input values
-        x1 = np.linspace(0.0, 1.0, 5)
-        x2 = np.linspace(0.0, 1.0, 5)
+        x1 = np.linspace(
+            params.VARYING_INPUTS_INPUTS[0],
+            params.VARYING_INPUTS_INPUTS[1],
+            params.VARYING_INPUTS_INPUTS[2],
+        )
+        x2 = np.linspace(
+            params.VARYING_INPUTS_INPUTS[0],
+            params.VARYING_INPUTS_INPUTS[1],
+            params.VARYING_INPUTS_INPUTS[2],
+        )
         # create meshgrid for all combinations
         x1, x2 = np.meshgrid(x1, x2)
         # flatten
@@ -70,7 +83,7 @@ class VaryingInputGPi(CompNeuroExp):
             # set input
             gpi.input = [x1[trial], x2[trial]]
             # simulate
-            simulate(params.SIMPLE_TRIAL_DURATION)
+            simulate(params.VARYING_INPUTS_DURATION)
         # store optional data
         self.data["baseline"] = baseline
         self.data["weights"] = weights

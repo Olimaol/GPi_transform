@@ -18,7 +18,7 @@ if __name__ == "__main__":
         compartment_list=gpi_model.populations + gpi_model.projections
     )
     # run the experiment
-    results = simple_trial.run()
+    results = simple_trial.run(input=[-2.5, -1.2])
     # save the results
     save_variables(
         variable_list=[results],
