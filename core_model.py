@@ -11,6 +11,14 @@ reversed_synapse = Synapse(
     description="Higher pre-synaptic activity lowers the synaptic transmission and vice versa.",
 )
 
+fixing_synapse = Synapse(
+    psp="""
+        w * clip(pre.r,0.0,1.0)
+    """,
+    name="Fixing Synapse",
+    description="The transmission of pre.r cannot be higher than 1.0.",
+)
+
 
 class LinearPopulation(Population):
     """
@@ -87,7 +95,9 @@ def create_model(
         )
         gpi__gpi.connect_all_to_all(weights=weights)
     elif laterals == "inh":
-        gpi__gpi = Projection(pre=gpi, post=gpi, target="inh", name="gpi__gpi")
+        gpi__gpi = Projection(
+            pre=gpi, post=gpi, target="inh", synapse=fixing_synapse, name="gpi__gpi"
+        )
         gpi__gpi.connect_all_to_all(weights=weights)
     else:
         raise ValueError(
