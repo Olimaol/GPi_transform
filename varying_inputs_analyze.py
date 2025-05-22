@@ -40,14 +40,12 @@ if __name__ == "__main__":
     )
     fig, ax = plt.subplots(3, 2, figsize=(12, 8))
     ax[0, 0].scatter(x1, x2, c=r1_exc, vmin=min_r, vmax=max_r, cmap="viridis")
-    ax[0, 0].set_title("Neuron 1")
-    ax[0, 0].set_ylabel("Excitatory Laterals")
+    ax[0, 0].set_title("Rate of Neuron 1")
 
     ax[0, 1].scatter(x1, x2, c=r2_exc, vmin=min_r, vmax=max_r, cmap="viridis")
-    ax[0, 1].set_title("Neuron 2")
+    ax[0, 1].set_title("Rate of Neuron 2")
 
     ax[1, 0].scatter(x1, x2, c=r1_inh, vmin=min_r, vmax=max_r, cmap="viridis")
-    ax[1, 0].set_ylabel("Inhibitory Laterals")
 
     ax[1, 1].scatter(x1, x2, c=r2_inh, vmin=min_r, vmax=max_r, cmap="viridis")
 
@@ -59,7 +57,6 @@ if __name__ == "__main__":
         vmax=max_diff,
         cmap="viridis",
     )
-    ax[2, 0].set_ylabel("Inhibitory - Excitatory")
 
     ax[2, 1].scatter(
         x1,
@@ -70,7 +67,20 @@ if __name__ == "__main__":
         cmap="viridis",
     )
 
+    for ax_i in ax.flatten():
+        ax_i.set_xlabel("Input Neuron 1")
+        ax_i.set_ylabel("Input Neuron 2")
+        ax_i.set_xlim(params.VARYING_INPUTS_INPUTS[0], params.VARYING_INPUTS_INPUTS[1])
+        ax_i.set_ylim(params.VARYING_INPUTS_INPUTS[0], params.VARYING_INPUTS_INPUTS[1])
+        ax_i.set_aspect("equal")
+        ax_i.grid()
+
     plt.tight_layout()
+    # add vertical row labels
+    fig.text(0.02, 0.82, "Excitatory Laterals", va="center", rotation="horizontal")
+    fig.text(0.02, 0.54, "Inhibitory Laterals", va="center", rotation="horizontal")
+    fig.text(0.02, 0.26, "Difference", va="center", rotation="horizontal")
+
     cbar_r = fig.colorbar(
         ax[1, 1].collections[0], ax=[ax[0, 0], ax[0, 1], ax[1, 0], ax[1, 1]]
     )
